@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Scaffold</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#" id="home-link">Home</a></li>
+          <li><a href="#" id="calendar-link">Calendar</a></li>
+          <li><a href="#" id="music-link">Music Player</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="content">
+      <section id="home">
+        <h1>Welcome to the Web Scaffold</h1>
+        <p>This is a basic scaffold for your web application. Use the navigation to access different features.</p>
+      </section>
+
+      <section id="calendar-page" style="display: none">
+        <h2>Calendar</h2>
+        <div class="calendar-form">
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <button id="prevMonth">‹</button>
+              <span id="calendarMonthYear"></span>
+              <button id="nextMonth">›</button>
+            </div>
+            <div class="calendar" id="calendar"></div>
+          </div>
+
+          <div class="event-form">
+            <h2>Add/Edit Event</h2>
+            <form id="eventForm">
+              <label for="eventDate">Date:</label>
+              <input type="text" id="eventDate" readonly />
+
+              <label for="eventTitle">Event Title:</label>
+              <input type="text" id="eventTitle" required />
+
+              <button type="submit">Save Event</button>
+            </form>
+          </div>
+        </div>
+        <div class="event-list">
+          <h2>Events</h2>
+          <ul id="eventList"></ul>
+        </div>
+      </section>
+
+      <section id="music" style="display: none">
+        <h2>Music Player</h2>
+        <p>Placeholder for the music player feature.</p>
+        <!-- Music player content will be added here -->
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Web Scaffold Project</p>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+    <script src="js/calendar.js"></script>
+  </body>
+</html>
