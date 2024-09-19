@@ -100,10 +100,57 @@ function playTrack(index) {
   playPauseBtn.textContent = "⏸️ Pause";
   isPlaying = true;
 
+  // Show the Now Playing element and update its text
+  const nowPlayingElement = document.getElementById("nowPlaying");
+  nowPlayingElement.textContent = `Now Playing: ${tracks[index].name}`;
+  document.querySelector(".now-playing").style.display = "block";
+
   // Reset progress bar for the new track
   progressBar.value = 0;
   currentTimeDisplay.textContent = "0:00";
+
+  // Highlight the currently playing track
+  const trackItems = trackList.querySelectorAll("li");
+  trackItems.forEach((item, i) => {
+    item.classList.toggle("playing", i === index);
+  });
 }
+
+// Handle file upload
+fileUpload.addEventListener("change", (e) => {
+  const files = e.target.files;
+  const uploadedTracks = Array.from(files).map((file) => ({
+    name: file.name,
+    src: URL.createObjectURL(file),
+  }));
+  userTracks.push(...uploadedTracks);
+  tracks = [...localTracks, ...userTracks]; // Merge local and user tracks
+  renderTrackList();
+  if (tracks.length > 0 && !isPlaying) {
+    playTrack(currentTrack);
+  }
+});
+
+// Reset when no track is playing
+audio.addEventListener("ended", () => {
+  playPauseBtn.textContent = "▶️ Play";
+  isPlaying = false;
+
+  // Remove highlight from the currently playing track
+  const trackItems = trackList.querySelectorAll("li");
+  trackItems.forEach((item) => {
+    item.classList.remove("playing");
+  });
+
+  // Hide the Now Playing element
+  document.querySelector(".now-playing").style.display = "none";
+
+  // Play the next track if available
+  if (tracks.length > 0) {
+    currentTrack = (currentTrack + 1) % tracks.length;
+    playTrack(currentTrack);
+  }
+});
 
 // Update progress bar as the track plays
 audio.addEventListener("timeupdate", () => {
@@ -136,6 +183,18 @@ function formatTime(seconds) {
 audio.addEventListener("ended", () => {
   playPauseBtn.textContent = "▶️ Play";
   isPlaying = false;
+
+  // Remove highlight from the currently playing track
+  const trackItems = trackList.querySelectorAll("li");
+  trackItems.forEach((item) => {
+    item.classList.remove("playing");
+  });
+
+  // Play the next track
+  if (tracks.length > 0) {
+    currentTrack = (currentTrack + 1) % tracks.length;
+    playTrack(currentTrack);
+  }
 });
 
 // Initialize the track list on page load

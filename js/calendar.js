@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentDate = new Date(); // Track the current date for rendering the calendar
   let events = JSON.parse(localStorage.getItem("events")) || {}; // Retrieve saved events from localStorage or initialize an empty object if none exist
+  let editingDate = null; // Track the date of the event being edited
 
   // Function to render the calendar grid for the current month
   function renderCalendar() {
@@ -50,6 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Clear any previously selected day by removing the 'selected' class
     document.querySelectorAll(".calendar div").forEach((d) => d.classList.remove("selected"));
     day.classList.add("selected"); // Add the 'selected' class to highlight the clicked day
+
+    editingDate = selectedDate; // Track the date of the event being edited
   }
 
   // Event listener for the form submission to add or update events
@@ -60,9 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Check if both date and title are provided
     if (date && title) {
-      events[date] = title; // Save the event (using the date as the key)
+      if (editingDate) {
+        events[editingDate] = title; // Update the existing event
+      } else {
+        events[date] = title; // Save the new event
+      }
       localStorage.setItem("events", JSON.stringify(events)); // Store the updated events in localStorage
       renderEvents(); // Re-render the events list to reflect changes
+      editingDate = null; // Reset the editing date
     }
   });
 
@@ -76,12 +84,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const deleteButton = document.createElement("button"); // Create a delete button for each event
       deleteButton.textContent = "Delete"; // Set the button text to "Delete"
-      // Add a click event listener to handle event deletion
       deleteButton.addEventListener("click", () => deleteEvent(date));
 
-      li.appendChild(deleteButton); // Append the delete button to the list item
+      const editButton = document.createElement("button"); // Create an edit button for each event
+      editButton.textContent = "Edit"; // Set the button text to "Edit"
+      // Add a click event listener to handle event editing
+      editButton.addEventListener("click", () => editEvent(date));
+
+      const container = document.createElement("div");
+      container.appendChild(editButton);
+      container.appendChild(deleteButton);
+
+      li.appendChild(container);
       eventList.appendChild(li); // Append the list item to the event list
     }
+  }
+
+  // Function to handle editing an event
+  function editEvent(date) {
+    selectDate({ dataset: { date } }); // Set the date in the form and select the day
+    editingDate = date; // Set the editingDate to the selected date
   }
 
   // Function to delete an event

@@ -16,6 +16,7 @@
           <li><a href="#" id="home-link">Home</a></li>
           <li><a href="#" id="calendar-link">Calendar</a></li>
           <li><a href="#" id="music-link">Music Player</a></li>
+          <li><a href="#" id="todo-link">Todo</a></li>
         </ul>
       </nav>
     </header>
@@ -68,6 +69,9 @@
             <!-- Upload music -->
             <input type="file" id="fileUpload" accept="audio/*" multiple />
 
+            <div class="now-playing" style="display: none">
+              <span id="nowPlaying">Now Playing: </span>
+            </div>
             <div class="progress-container">
               <span id="currentTime">0:00</span>
               <input type="range" id="progressBar" value="0" max="100" />
@@ -92,6 +96,16 @@
           </div>
         </div>
       </section>
+      <section id="todo" style="display: none">
+        <div class="todo">
+          <h1>To-Do List</h1>
+          <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="Add a new task..." required />
+            <button type="submit">Add</button>
+          </form>
+          <ul id="todo-list"></ul>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -101,5 +115,6 @@
     <script src="js/scripts.js"></script>
     <script src="js/calendar.js"></script>
     <script src="js/music.js"></script>
+    <script src="js/todo.js"></script>
   </body>
 </html>

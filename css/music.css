@@ -190,3 +190,14 @@ audio {
   color: var(--muted-foreground);
   font-size: 14px;
 }
+.playing {
+  background-color: #f0f0f0; /* Highlight color */
+  font-weight: bold; /* Optional: to make the text bold */
+}
+.now-playing {
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
