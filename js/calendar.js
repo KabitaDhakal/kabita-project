@@ -102,8 +102,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to handle editing an event
   function editEvent(date) {
-    selectDate({ dataset: { date } }); // Set the date in the form and select the day
-    editingDate = date; // Set the editingDate to the selected date
+    const newTitle = prompt("Edit event title:", events[date]); // Prompt the user to enter a new event title
+    if (newTitle !== null && newTitle.trim() !== "") {
+      // Check if the user entered a non-empty value
+      events[date] = newTitle; // Update the event with the new title
+      localStorage.setItem("events", JSON.stringify(events)); // Update localStorage with the new event data
+      renderEvents(); // Re-render the events list to reflect changes
+    }
   }
 
   // Function to delete an event
