@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a multi-functional web application that incorporates a calendar, a music player, and a to-do list. Each feature enhances user experience and productivity, leveraging local storage for data persistence.
+This project is a basic webpage designed as part of a college assignment. It demonstrates fundamental web development skills, incorporating HTML, CSS, and JavaScript to create a simple yet functional user interface. The webpage showcases structured content, interactive elements, and responsive design principles.
 
 ## File Structure
 
